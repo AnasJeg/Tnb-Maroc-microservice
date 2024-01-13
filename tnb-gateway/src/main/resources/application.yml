@@ -1,0 +1,21 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: tnb-gateway
+    cloud:
+  cloud:
+    discovery:
+      enabled: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8766/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

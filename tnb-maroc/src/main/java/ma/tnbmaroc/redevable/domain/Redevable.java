@@ -2,16 +2,16 @@ package ma.tnbmaroc.redevable.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ma.tnbmaroc.terrain.domain.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor @NoArgsConstructor
 public class Redevable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,8 @@ public class Redevable {
     private String nom;
     private String prenom;
     private String cin;
+
+    private String password;
     @OneToMany(mappedBy = "redevable", cascade = CascadeType.ALL)
    @JsonIgnore
     private List<Terrain> terrains = new ArrayList<>();

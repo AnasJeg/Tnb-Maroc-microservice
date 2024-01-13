@@ -5,9 +5,17 @@ import lombok.extern.slf4j.Slf4j;
 import ma.tnbmaroc.redevable.domain.Redevable;
 import ma.tnbmaroc.redevable.repository.RedevableRepository;
 import ma.tnbmaroc.redevable.service.RedevableService;
+import ma.tnbmaroc.security.AuthenticationRequest;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -16,14 +24,30 @@ public class RedevableImplementation implements RedevableService {
 
     private final RedevableRepository redevableRepository;
 
-    public RedevableImplementation(RedevableRepository rp){
-        this.redevableRepository=rp;
+
+
+    public RedevableImplementation(RedevableRepository rp) {
+        this.redevableRepository = rp;
+
     }
+
+    @KafkaListener(topics = "authentication-service", groupId = "tnb-service", containerFactory = "kafkaListenerContainerFactory")
+    public void consumeRedevableMessage(ConsumerRecord<String, Redevable> record) {
+        try {
+            Redevable redevable = record.value();
+            log.info("Received and saved Redevable from Kafka: {}", redevable);
+            this.save(redevable);
+        } catch (Exception e) {
+            log.error("Error processing Kafka message: {}", e.getMessage());
+        }
+    }
+
     @Override
     public Redevable save(Redevable redevable) {
-        log.info("save redevable {}",redevable);
+        log.info("save redevable {}", redevable);
         return this.redevableRepository.save(redevable);
     }
+
 
     @Override
     public Page<Redevable> getAll(Pageable pageable) {
@@ -53,8 +77,12 @@ public class RedevableImplementation implements RedevableService {
         return this.redevableRepository.findById(id).get();
     }
 
+
+
     @Override
     public Redevable findByCin(String cin) {
         return this.redevableRepository.findByCin(cin);
     }
+
+
 }

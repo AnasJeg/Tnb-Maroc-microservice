@@ -1,0 +1,12 @@
+# Keypair
+> openssl genrsa -out keypair.pem 2048
+# Public Key
+> openssl rsa -in keypair.pem -pubout -out public.pem
+# Private Key
+> openssl pkcs8 -topk8 -inform PEM -nocrypt -in keypair.pem -out private.pem
+
+
+#Kafka
+> bin/zookeeper-server-start.sh config/zookeeper.properties
+> bin/kafka-server-start.sh config/server.properties
+> bin/kafka-console-consumer.sh --topic authentication-service --from-beginning --bootstrap-server localhost:9092
