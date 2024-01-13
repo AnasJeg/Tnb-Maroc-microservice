@@ -1,6 +1,7 @@
 package com.authentificationservice.config;
 
 import com.authentificationservice.entities.AuthenticationRequest;
+import com.authentificationservice.entities.Redevable;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,19 +25,19 @@ public class ProducerKafka {
         HashMap<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class); // Use JsonSerializer for value serialization
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return props;
     }
 
 
     @Bean
-    public ProducerFactory<String, AuthenticationRequest> authenticationRequestProducerFactory() {
+    public ProducerFactory<String, Redevable> authenticationRequestProducerFactory() {
         Map<String, Object> configProps = producerConfig();
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
     @Bean
-    public KafkaTemplate<String, AuthenticationRequest> authenticationRequestKafkaTemplate() {
+    public KafkaTemplate<String, Redevable> authenticationRequestKafkaTemplate() {
         return new KafkaTemplate<>(authenticationRequestProducerFactory());
     }
 }

@@ -12,7 +12,7 @@ public class KafkaTopic {
     public NewTopic topic(){
         return TopicBuilder.name("authentication-service").build();
     }
-
+/*
     @Bean
     public NewTopic logintopic(){
         return TopicBuilder.name("login-service").build();
@@ -22,4 +22,6 @@ public class KafkaTopic {
     public NewTopic loginResponsetopic(){
         return TopicBuilder.name("tnb-authentication-result").build();
     }
+
+ */
 }

@@ -2,6 +2,7 @@ package com.authentificationservice.web;
 
 import com.authentificationservice.entities.AuthenticationRequest;
 import com.authentificationservice.entities.Redevable;
+import com.authentificationservice.service.RedevableService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.errors.TimeoutException;
@@ -40,66 +41,33 @@ public class AuthentificationController {
     private JwtEncoder jwtEncoder;
 
     @Autowired
-    private JwtDecoder jwtDecoder;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
     private KafkaTemplate<String, Redevable> redevableKafkaTemplate;
 
     @Autowired
-    private KafkaTemplate<String, AuthenticationRequest> authenticationRequestKafkaTemplate;
+    private RedevableService redevableService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-
-
-    @KafkaListener(topics = "tnb-authentication-result", groupId = "tnb-service", containerFactory = "kafkaListenerContainerFactory")
-    public boolean consumeRedevableMessage(ConsumerRecord<String, Boolean> record) {
-        try {
-            log.info("Received and boolean from Kafka: {}", record.value());
-          return   record.value();
-        } catch (Exception e) {
-            log.error("Error processing Kafka message: {}", e.getMessage());
-        }
-    }
-
-    // authentication-service login method
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(String username, String password) {
-        if (username == null || password == null) {
-            return new ResponseEntity<>(Map.of("errorMessage", "Username and password are required"), HttpStatus.BAD_REQUEST);
-        }
-
-        // Send authentication request to tnb-service through Kafka
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(username, password);
-        authenticationRequestKafkaTemplate.send("login-service", authenticationRequest);
-
-        // Wait for the authentication result
-        boolean isAuthenticated;
-        try {
-            isAuthenticated = authenticationFuture.get(10, TimeUnit.SECONDS); // Wait for 10 seconds
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-            return new ResponseEntity<>(Map.of("errorMessage", "Authentication failed"), HttpStatus.INTERNAL_SERVER_ERROR);
-        } finally {
-            authenticationFutures.remove(username);
-        }
-
-        if (isAuthenticated) {
-            String subject = username; // Assuming username is CIN
-            String scope = "USER";
-            Map<String, String> idToken = generateTokens(subject, scope);
-            return new ResponseEntity<>(idToken, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(Map.of("errorMessage", "Authentication failed"), HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) {
+        if (authenticationRequest.getCin() == null || authenticationRequest.getPassword() == null) {
+        return new ResponseEntity<>(Map.of("errorMessage", "Username and password are required"), HttpStatus.BAD_REQUEST);
     }
+
+    // Authenticate the user using RedevableService
+    boolean isAuthenticated = redevableService.authenticate(authenticationRequest);
+
+    if (isAuthenticated) {
+        // Authentication successful, generate token
+        String subject = authenticationRequest.getCin(); // Assuming username is CIN
+        String scope = "USER";
+        Map<String, String> idToken = generateTokens(subject, scope);
+        return new ResponseEntity<>(idToken, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(Map.of("errorMessage", "Authentication failed"), HttpStatus.UNAUTHORIZED);
+    }
+}
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody Redevable redevable) {

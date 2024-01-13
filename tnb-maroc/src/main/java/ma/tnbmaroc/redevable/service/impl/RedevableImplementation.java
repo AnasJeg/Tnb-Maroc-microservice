@@ -5,17 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import ma.tnbmaroc.redevable.domain.Redevable;
 import ma.tnbmaroc.redevable.repository.RedevableRepository;
 import ma.tnbmaroc.redevable.service.RedevableService;
-import ma.tnbmaroc.security.AuthenticationRequest;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Transactional
