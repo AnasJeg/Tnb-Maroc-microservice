@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ma.tnbmaroc.taux.domain.Taux;
 
 
 @Entity
@@ -15,6 +16,9 @@ public class Categorie {
     private Long id;
     private String label;
     private String description;
+/*
+    @ManyToOne
+    private Taux taux;
 
-
+ */
 }

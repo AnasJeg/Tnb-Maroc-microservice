@@ -52,4 +52,9 @@ public class TauxImplementation implements TauxService {
     public Taux getById(Long id) {
         return this.tauxRepository.findById(id).get();
     }
+
+    @Override
+    public Taux findByCategorieLabel(String cat) {
+        return this.tauxRepository.findByCategorieLabel(cat);
+    }
 }

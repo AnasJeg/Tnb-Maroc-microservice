@@ -42,4 +42,9 @@ public class RedevableService {
         // Authentication failed
         return false;
     }
+
+    public Redevable findByCin(String cin) {
+        return this.redevableRepository.findByCin(cin).get();
+    }
+
 }
