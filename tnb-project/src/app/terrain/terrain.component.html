@@ -4,8 +4,8 @@
     <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm gap-2" (click)="openSaveDialog()" ></button>
   </div>
   <div class="card">
-    <p-table >
-      <!--    <p-table [value]="categories" >-->
+<!--    <p-table >-->
+          <p-table [value]="terrains" >
       <ng-template pTemplate="caption" >
         <div class="flex align-items-center justify-content-start">
           <h3>Terrain</h3>
@@ -18,14 +18,17 @@
           <th>Surface</th>
           <th>Client</th>
           <th>Category</th>
-          <th>Description</th>
           <th>Actions</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-terrain>
         <tr>
+<!--          <td><p-tag severity="success" ></p-tag></td>-->
           <td>{{terrain.id}}</td>
-          <td><p-tag severity="success" ></p-tag></td>
+          <td>{{terrain.nom}}</td>
+          <td>{{terrain.surface}}</td>
+          <td>{{terrain.redevable?.id}}</td>
+          <td>{{terrain.categorie?.id}}</td>
           <td>
             <button pButton label="Delete" class="p-button-warning mx-2 p-2" ></button>
             <button pButton label="Update" class="p-button-primary mx-2 p-2" ></button>
@@ -45,37 +48,30 @@
 
 
 <p-dialog header="Add Terrain" [(visible)]="displaySaveDialog" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
-
   <div class="p-fluid">
     <div class="p-field">
-      <label for="label">Name</label>
-      <input id="label" pInputText />
+      <label for="nom">Name</label>
+      <input id="nom" pInputText [(ngModel)]="newTerrain.nom" />
     </div>
     <div class="p-field">
-      <label for="label">Surface</label>
-      <input id="Amount" pInputText />
-    </div>
-    <div class="p-field">
-      <label for="label">Description</label>
-      <input id="description" pInputText />
+      <label for="surface">Surface</label>
+      <input id="surface" pInputText [(ngModel)]="newTerrain.surface" />
     </div>
 
-    <div class="p-field-group flex-shrink justify-between" >
-      <div class="p-field">
-        <label for="label">Client</label>
-        <p-dropdown  optionLabel="name"></p-dropdown>
-      </div>
 
-      <div class="p-field ">
-        <label for="label">Categories</label>
-        <p-dropdown   optionLabel="name"></p-dropdown>
+
+    <div class="p-field m-1">
+      <div class="p-field m-1">
+        <label for="category" class="mx-2">Category</label>
+        <select class="form-select " id="category"  [(ngModel)]="newTerrain.categorie!.id" name="category">
+          <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.label }}</option>
+        </select>
       </div>
     </div>
 
   </div>
-
   <div class="p-dialog-footer mt-2">
-    <button pButton label="Save" class="p-button-success" ></button>
+    <button pButton label="Save" class="p-button-success" (click)="saveTerrain()"></button>
     <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>
   </div>
 </p-dialog>
