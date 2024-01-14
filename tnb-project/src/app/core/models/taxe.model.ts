@@ -7,7 +7,7 @@ export interface Taxe {
     montant: number;
     annee: number;
     redevable: Redevable;
-   // terrain: Terrain;
+  // terrain: Terrain;
    // categorie: Categorie;
     taux: Taux;
   }
