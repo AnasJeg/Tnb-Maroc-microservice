@@ -1,0 +1,43 @@
+
+<div class="card  m-3 p-2">
+  <div class="grid grid-cols-2 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
+    <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm gap-2" ></button>
+  </div>
+  <div class="card">
+    <p-table >
+      <!--    <p-table [value]="categories" >-->
+      <ng-template pTemplate="caption" >
+        <div class="flex align-items-center justify-content-start">
+          <h3>Terrain</h3>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" >
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Surface</th>
+          <th>Client</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-terrain>
+        <tr>
+          <td>{{terrain.id}}</td>
+          <td><p-tag severity="success" ></p-tag></td>
+          <td>
+            <button pButton label="Delete" class="p-button-warning mx-2 p-2" ></button>
+            <button pButton label="Update" class="p-button-primary mx-2 p-2" ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          <!--          In total there are {{categories ? categories.length : 0 }} category.-->
+          test
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

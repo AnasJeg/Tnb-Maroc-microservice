@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="tnb-maroc" />
+        <module name="authentification-service" />
+        <module name="eureka-server" />
+        <module name="tnb-gateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="authentification-service" target="17" />
+      <module name="eureka-server" target="17" />
+      <module name="tnb-gateway" target="17" />
+      <module name="tnb-maroc" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="authentification-service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="tnb-gateway" options="-parameters" />
+      <module name="tnb-maroc" options="-parameters" />
+    </option>
+  </component>
+</project>

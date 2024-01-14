@@ -1,0 +1,77 @@
+
+<div class="card  m-3 p-2">
+  <div class="grid grid-cols-2 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
+    <button pButton label="Add Tax" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm gap-2" (click)="openSaveDialog()" ></button>
+  </div>
+  <div class="card ">
+    <p-table >
+<!--    <p-table [value]="categories" >-->
+      <ng-template pTemplate="caption" >
+        <div class="flex align-items-center justify-content-start">
+          <h3>Taxes</h3>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" >
+        <tr>
+          <th>id</th>
+          <th>Label</th>
+          <th>Terrain</th>
+          <th>Client</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Amount Base</th>
+          <th>Percentage</th>
+          <th>Year</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tax>
+        <tr>
+          <td>{{tax.id}}</td>
+          <td><p-tag severity="success" ></p-tag></td>
+          <td>
+            <button pButton label="Delete" class="p-button-warning mx-2 p-2" ></button>
+            <button pButton label="Update" class="p-button-primary mx-2 p-2" ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          In total there are  ....
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+<p-dialog header="Add Tax" [(visible)]="displaySaveDialog" [modal]="true" [responsive]="true">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="label">Label</label>
+      <input id="label" pInputText />
+    </div>
+  </div>
+
+  <div class="p-dialog-footer mt-2">
+    <button pButton label="Save" class="p-button-success" ></button>
+    <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>
+  </div>
+</p-dialog>
+
+<!--<p-dialog header="Update Tax" [(visible)]="displayUpdateDialog" [modal]="true" [responsive]="true">-->
+<!--  <div class="p-fluid">-->
+<!--    <div class="p-field ">-->
+<!--      <label for="updateLabel">Label</label>-->
+<!--      <input id="updateLabel" pInputText  />-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="p-dialog-footer">-->
+<!--    <button pButton label="Update" class="p-button-success" ></button>-->
+<!--    <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>-->
+<!--  </div>-->
+<!--</p-dialog>-->
+
+
+
