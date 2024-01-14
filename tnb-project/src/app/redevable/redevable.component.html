@@ -1,0 +1,42 @@
+<div class="card m-3 p-2">
+    <div class="card">
+      <p-table [value]="redevables">
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-start">
+            <h3>Redevable</h3>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>CIN</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-redevable>
+          <tr>
+            <td>{{ redevable.id }}</td>
+            <td>{{ redevable.nom }}</td>
+            <td>{{ redevable.prenom }}</td>
+            <td>{{ redevable.cin }}</td>
+            <td>{{ redevable.password }}</td>
+            <td>{{ redevable.role?.label }}</td>
+            <!-- <td>
+              <button pButton label="Delete" class="p-button-warning mx-2 p-2" (click)="deleteRedevable(redevable.id)"></button>
+              <button pButton label="Update" class="p-button-primary mx-2 p-2" (click)="updateRedevable(redevable.id)"></button>
+            </td> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+            In total there are {{ redevables.length }} redevables.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  

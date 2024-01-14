@@ -15,6 +15,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("api/taux")
 @AllArgsConstructor
+@CrossOrigin
 public class TauxController {
     private final TauxService tauxService;
     @PostMapping("/save")

@@ -9,7 +9,7 @@ import { Redevable } from '../models/redevable.model';
 })
 export class RedevableService extends DaoService<Redevable> {
 
-  constructor(public override http: HttpClient, private auth: AuthService) {
-    super('users/', auth, http);
+  constructor(public override http: HttpClient) {
+    super('users/', http);
   }
 }

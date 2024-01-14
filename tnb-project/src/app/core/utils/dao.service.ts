@@ -13,7 +13,7 @@ import { PaginationValue } from '../models/pagination.model';
 export abstract class DaoService<T> {
     protected API = environment.URL;
 
-    protected constructor(API: string, public authService: AuthService,
+    protected constructor(API: string,
                           public http: HttpClient) {
         this.API += API;
     }

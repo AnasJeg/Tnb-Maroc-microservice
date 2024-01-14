@@ -29,6 +29,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { LoginComponent } from './login/login.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {RippleModule} from "primeng/ripple";
+import { RedevableComponent } from './redevable/redevable.component';
+import { TaxeComponent } from './taxe/taxe.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import {RippleModule} from "primeng/ripple";
     NavbarComponent,
     TerrainComponent,
     CategoriesComponent,
-    LoginComponent
+    LoginComponent,
+    RedevableComponent,
+    TaxeComponent
   ],
     imports: [
         FormsModule,

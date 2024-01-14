@@ -4,12 +4,16 @@ import {AdminHomePageComponent} from "./admin-home-page/admin-home-page.componen
 import {ClientHomePageComponent} from "./client-home-page/client-home-page.component";
 import {TerrainComponent} from "./terrain/terrain.component";
 import {CategoriesComponent} from "./categories/categories.component";
+import { RedevableComponent } from './redevable/redevable.component';
+import { TaxeComponent } from './taxe/taxe.component';
 
 const routes: Routes = [
   {path: 'admin_home' ,component:AdminHomePageComponent},
   {path: 'terrain' ,component:TerrainComponent},
   {path: 'tax' ,component:ClientHomePageComponent},
   {path: 'categories' ,component:CategoriesComponent},
+  {path: 'redevable', component: RedevableComponent},
+  {path: 'taxes', component: TaxeComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

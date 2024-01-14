@@ -16,6 +16,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("api/users")
 @RequiredArgsConstructor
+@CrossOrigin
 public class RedevableController {
     private final RedevableService redevableService;
 
