@@ -15,7 +15,7 @@ public class AuthenticationListener {
     @KafkaListener(topics = "tnb-authentication-result", groupId = "authentication-service", containerFactory = "kafkaListenerContainerFactory")
     public void listenToAuthenticationResult(@Payload Boolean result) {
         isAuthenticated = result;
-        latch.countDown(); // Signal that the result has been received
+        latch.countDown();
     }
 
     public boolean waitForAuthenticationResult() throws InterruptedException {
