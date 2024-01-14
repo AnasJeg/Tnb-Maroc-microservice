@@ -28,6 +28,7 @@ import {CalendarModule} from "primeng/calendar";
 import { CategoriesComponent } from './categories/categories.component';
 import { LoginComponent } from './login/login.component';
 import {CheckboxModule} from "primeng/checkbox";
+import {RippleModule} from "primeng/ripple";
 
 
 @NgModule({
@@ -40,37 +41,38 @@ import {CheckboxModule} from "primeng/checkbox";
     CategoriesComponent,
     LoginComponent
   ],
-  imports: [
-    FormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    MenubarModule,
-    TableModule,
-    TagModule,
-    ButtonModule,
-    InputTextModule,
-    DialogModule,
-    BrowserModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    ButtonModule,
-    InputTextModule,
-    InputSwitchModule,
-    ImageModule,
-    TagModule,
-    DividerModule,
-    CardModule,
-    HttpClientModule,
-    DialogModule,
-    MenubarModule,
-    AppRoutingModule,
-    TableModule,
-    DropdownModule,
-    ToastModule,
-    FileUploadModule,
-    CalendarModule,
-    CheckboxModule
-  ],
+    imports: [
+        FormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        MenubarModule,
+        TableModule,
+        TagModule,
+        ButtonModule,
+        InputTextModule,
+        DialogModule,
+        BrowserModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        ButtonModule,
+        InputTextModule,
+        InputSwitchModule,
+        ImageModule,
+        TagModule,
+        DividerModule,
+        CardModule,
+        HttpClientModule,
+        DialogModule,
+        MenubarModule,
+        AppRoutingModule,
+        TableModule,
+        DropdownModule,
+        ToastModule,
+        FileUploadModule,
+        CalendarModule,
+        CheckboxModule,
+        RippleModule
+    ],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })
