@@ -15,6 +15,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("api/categorie")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CategorieController {
     private final CategorieService categorieService;
 
@@ -40,8 +41,8 @@ public class CategorieController {
         return ResponseEntity.ok().body(categorieService.getById(id));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> delete(@PathParam(value = "id") Long id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
         this.categorieService.delete(id);
         return ResponseEntity.ok().build();
     }

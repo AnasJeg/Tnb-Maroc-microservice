@@ -15,6 +15,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("api/terrain")
 @RequiredArgsConstructor
+@CrossOrigin
 public class TerrainController {
     private final TerrainService terrainService;
     @PostMapping("/save")
