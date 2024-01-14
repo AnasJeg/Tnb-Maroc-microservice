@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class TerrainComponent {
 
+
+  displaySaveDialog : boolean = false;
+
+  openSaveDialog(): void {
+    this.displaySaveDialog = true;
+  }
+
 }

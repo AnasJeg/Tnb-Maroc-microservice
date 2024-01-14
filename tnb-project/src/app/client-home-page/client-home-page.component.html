@@ -1,4 +1,37 @@
-<p>client-home-page works!</p>
-<h1 class="text-3xl font-bold underline bg-teal-700">
-  Hello world!
-</h1>
+
+<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+  <div class="text-900 font-bold text-6xl mb-4 text-center">Mes Taxes</div>
+
+  <div class="grid grid-cols-3 gap-3">
+
+    <div class="col-12 ">
+      <div class="p-3 h-full">
+        <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
+          <div class="text-900 font-medium text-xl mb-2">Terrain :</div>
+          <div class="text-600">Tax description :</div>
+          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
+          <div class="flex align-items-center">
+            <span class="font-bold text-2xl text-900">Amount : Dh</span>
+          </div>
+          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
+          <ul class="list-none p-0 m-0 flex-grow-1">
+            <li class="flex align-items-center mb-3">
+              <i class="pi pi-check-circle text-green-500 mr-2"></i>
+              <span class="text-900">Percentage :</span>
+            </li>
+            <li class="flex align-items-center mb-3">
+              <i class="pi pi-check-circle text-green-500 mr-2"></i>
+              <span class="text-900">Status :</span>
+            </li>
+            <li class="flex align-items-center mb-3">
+              <i class="pi pi-check-circle text-green-500 mr-2"></i>
+              <span class="text-900">Year :</span>
+            </li>
+          </ul>
+          <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
+          <button pButton pRipple label="button" class="p-3 w-full mt-auto"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

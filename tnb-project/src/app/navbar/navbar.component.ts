@@ -21,22 +21,28 @@ export class NavbarComponent {
   ngOnInit() {
     this.items = [
       {
+        label: 'admin_Home',
+        icon: 'pi pi-fw pi-slack',
+        command: () => this.navigateTo('/admin_home'),
+
+      },
+      {
         label: 'Terrains',
         icon: 'pi pi-fw pi-slack',
         command: () => this.navigateTo('/terrain'),
       },
       {
-        label: 'Tax',
+        label: 'Categories',
+        icon: 'pi pi-fw pi-slack',
+        command: () => this.navigateTo('/categories'),
+      },
+      {
+        label: 'Client Taxes',
         icon: 'pi pi-fw pi-ticket',
         command: () => this.navigateTo('/tax'),
 
       },
-      {
-        label: 'admin dash',
-        icon: 'pi pi-fw pi-ticket',
-        command: () => this.navigateTo('/home'),
 
-      },
 
     ];
   }

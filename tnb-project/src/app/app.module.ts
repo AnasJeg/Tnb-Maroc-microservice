@@ -15,6 +15,20 @@ import {InputTextModule} from "primeng/inputtext";
 import {DialogModule} from "primeng/dialog";
 import {FormsModule} from "@angular/forms";
 import {MessageService} from "primeng/api";
+import {HttpClientModule} from "@angular/common/http";
+import {DropdownModule} from "primeng/dropdown";
+import {ToastModule} from "primeng/toast";
+import {FileUploadModule} from "primeng/fileupload";
+import {CardModule} from "primeng/card";
+import {DividerModule} from "primeng/divider";
+import {ImageModule} from "primeng/image";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {InputSwitchModule} from "primeng/inputswitch";
+import {CalendarModule} from "primeng/calendar";
+import { CategoriesComponent } from './categories/categories.component';
+import { LoginComponent } from './login/login.component';
+import {CheckboxModule} from "primeng/checkbox";
+
 
 @NgModule({
   declarations: [
@@ -22,7 +36,9 @@ import {MessageService} from "primeng/api";
     AdminHomePageComponent,
     ClientHomePageComponent,
     NavbarComponent,
-    TerrainComponent
+    TerrainComponent,
+    CategoriesComponent,
+    LoginComponent
   ],
   imports: [
     FormsModule,
@@ -33,7 +49,27 @@ import {MessageService} from "primeng/api";
     TagModule,
     ButtonModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    BrowserModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    ButtonModule,
+    InputTextModule,
+    InputSwitchModule,
+    ImageModule,
+    TagModule,
+    DividerModule,
+    CardModule,
+    HttpClientModule,
+    DialogModule,
+    MenubarModule,
+    AppRoutingModule,
+    TableModule,
+    DropdownModule,
+    ToastModule,
+    FileUploadModule,
+    CalendarModule,
+    CheckboxModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
