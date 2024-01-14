@@ -2,10 +2,15 @@ package ma.tnbmaroc.taxe.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import ma.tnbmaroc.redevable.domain.Redevable;
+import ma.tnbmaroc.redevable.service.RedevableService;
+import ma.tnbmaroc.taux.domain.Taux;
+import ma.tnbmaroc.taux.service.TauxService;
 import ma.tnbmaroc.taxe.domain.Taxe;
 import ma.tnbmaroc.taxe.repository.TaxeRepository;
 import ma.tnbmaroc.taxe.service.TaxeService;
 import ma.tnbmaroc.terrain.domain.Terrain;
+import ma.tnbmaroc.terrain.service.TerrainService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,12 +21,27 @@ import org.springframework.stereotype.Service;
 public class TaxeImplementation implements TaxeService {
 
     private final TaxeRepository taxeRepository;
-    public TaxeImplementation(TaxeRepository tr){
+
+    private final TauxService tauxService;
+    private final RedevableService redevableService;
+    private final TerrainService terrainService;
+    public TaxeImplementation(TaxeRepository tr,TauxService tauxService1, RedevableService redevableService,TerrainService terrainService){
         this.taxeRepository=tr;
+        this.tauxService=tauxService1;
+        this.redevableService=redevableService;
+        this.terrainService=terrainService;
     }
     @Override
     public Taxe save(Taxe taxe) {
-        log.info("save taxe : {}",taxe);
+        Redevable redevable = redevableService.findByCin(taxe.getRedevable().getCin());
+        Terrain terrain = terrainService.getById(taxe.getTerrain().getId());
+
+        Taux taux = tauxService.findByCategorieLabel(terrain.getCategorie().getLabel());
+        taxe.setRedevable(redevable);
+        taxe.setTerrain(terrain);
+        taxe.setTaux(taux);
+        taxe.setMontant(terrain.getSurface() * taux.getPrix());
+        log.info("save taxe : {}", taxe);
         return this.taxeRepository.save(taxe);
     }
 
@@ -55,9 +75,19 @@ public class TaxeImplementation implements TaxeService {
 
     @Override
     public Double TaxeTnb(String cin, int annee, Terrain terrain) {
-        
-        return null;
+        Redevable redevable = redevableService.findByCin(cin);
+        Taux taux = tauxService.findByCategorieLabel(terrain.getCategorie().getLabel());
+
+        if (taxeRepository.existsByRedevableAndTerrainAndAnnee(redevable, terrain, annee)) {
+            log.warn("Tax for anne {} on terrain {} has already been paid !", annee, terrain.getId());
+            return null;
+        }
+
+        Double taxeAmount = terrain.getSurface() * taux.getPrix();
+        log.info("tax for annee {} on terrain {}: {}", annee, terrain.getId(), taxeAmount);
+        return taxeAmount;
     }
+
 
 
 }

@@ -24,4 +24,7 @@ public class Redevable {
     @OneToMany(mappedBy = "redevable", cascade = CascadeType.ALL)
    @JsonIgnore
     private List<Terrain> terrains = new ArrayList<>();
+
+    @ManyToOne
+    private Role role;
 }

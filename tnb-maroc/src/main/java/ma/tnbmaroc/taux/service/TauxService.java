@@ -10,4 +10,6 @@ public interface TauxService {
     Taux update(Taux taux);
     boolean delete(Long id);
     Taux getById(Long id);
+
+    Taux findByCategorieLabel(String cat);
 }
