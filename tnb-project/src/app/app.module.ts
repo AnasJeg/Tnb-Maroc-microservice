@@ -31,6 +31,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {RippleModule} from "primeng/ripple";
 import { RedevableComponent } from './redevable/redevable.component';
 import { TaxeComponent } from './taxe/taxe.component';
+import { TauxComponent } from './taux/taux.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { TaxeComponent } from './taxe/taxe.component';
     CategoriesComponent,
     LoginComponent,
     RedevableComponent,
-    TaxeComponent
+    TaxeComponent,
+    TauxComponent
   ],
     imports: [
         FormsModule,

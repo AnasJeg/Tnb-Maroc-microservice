@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
-import { Dropdown } from 'primeng/dropdown';
 import { RedevableService } from '../core/service/redevable.service';
 import { TerrainService } from '../core/service/terrain.service';
-import { CategorieService } from '../core/service/categorie.service';
 import { TauxService } from '../core/service/taux.service';
 import { PaginationValue } from '../core/models/pagination.model';
 import { Taxe } from '../core/models/taxe.model';
 import { Redevable } from '../core/models/redevable.model';
 import { Terrain } from '../core/models/terrain.model';
-import { Categorie } from '../core/models/categorie.model';
 import { Taux } from '../core/models/taux.model';
 import { TaxeService } from '../core/service/taxe.service';
 import { Pagination } from '../core/models/request.model';
@@ -27,14 +24,12 @@ export class TaxeComponent implements OnInit {
   newTaxe: Taxe = {} as Taxe;
   redevables: Redevable[] = [];
   terrains: Terrain[] = [];
-  categories: Categorie[] = [];
   tauxs: Taux[] = [];
 
   constructor(
     private taxeService: TaxeService,
     private redevableService: RedevableService,
     private terrainService: TerrainService,
-    private categorieService: CategorieService,
     private tauxService: TauxService,
     public dialogService: DialogService,
     public messageService: MessageService
@@ -48,9 +43,9 @@ export class TaxeComponent implements OnInit {
     
     this.redevableService.findAll({ size: 10, page: 0 }).subscribe(data => this.redevables = data.content || []);
     this.terrainService.findAll().subscribe(data => this.terrains = data || []);
-    this.categorieService.findAll().subscribe(data => this.categories = data || []);
     this.tauxService.findAll({ size: 10, page: 0 }).subscribe(data => this.tauxs = data.content || []);
 
+    
     
     this.loadTaxes();
   }
@@ -72,13 +67,19 @@ export class TaxeComponent implements OnInit {
   }
 
   openSaveDialog(): void {
-    this.newTaxe = {} as Taxe;
-    this.displaySaveDialog = true;
+    if (this.redevables.length > 0 && this.terrains.length > 0 && this.tauxs.length > 0) {
+      this.newTaxe = {} as Taxe;
+      this.newTaxe.taux = this.tauxs[0];
+      this.displaySaveDialog = true;
+      console.log(this.redevables);
+      console.log(this.terrains);
+      console.log(this.tauxs);
+  } else {
+      console.error('Error opening save dialog: Data not loaded');
+  }
   }
 
-  saveTaxe(): void {
-    
-    
+  saveTaxe(): void {  
     this.taxeService.create(this.newTaxe).subscribe(
       () => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Taxe added successfully!' });

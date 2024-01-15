@@ -1,0 +1,54 @@
+<div class="card m-3 p-2">
+    <div class="grid grid-cols-2 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
+      <button pButton label="Add Taux" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm gap-2" (click)="openSaveDialog()"></button>
+    </div>
+    <div class="card">
+      <p-table [value]="tauxs">
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-start">
+            <h3>Taux</h3>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID</th>
+            <th>Prix</th>
+            <th>Categorie</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-taux>
+          <tr>
+            <td>{{ taux.id }}</td>
+            <td>{{ taux.prix }}</td>
+            <td>{{ taux.categorie?.label }}</td>
+            <td>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+            In total there are {{ tauxs.length }} taux.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <p-dialog header="Add Taux" [(visible)]="displaySaveDialog" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="prix">Prix</label>
+        <input id="prix" pInputText [(ngModel)]="newTaux.prix" />
+      </div>
+      <div class="p-field">
+        <label for="categorie">Categorie</label>
+        <p-dropdown [options]="categories" [(ngModel)]="newTaux.categorie" optionLabel="label" placeholder="Select a categorie"></p-dropdown>
+      </div>
+    </div>
+  
+    <div class="p-dialog-footer mt-2">
+      <button pButton label="Save" class="p-button-success" (click)="saveTaux()"></button>
+      <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>
+    </div>
+  </p-dialog>
