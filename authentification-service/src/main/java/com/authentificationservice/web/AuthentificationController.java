@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -24,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/auth")
 @Slf4j
+@CrossOrigin
 // @RequiredArgsConstructor
 public class AuthentificationController {
 
@@ -42,9 +40,9 @@ public class AuthentificationController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) {
         if (authenticationRequest.getCin() == null || authenticationRequest.getPassword() == null) {
-        return new ResponseEntity<>(Map.of("errorMessage", "Username and password are required"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(Map.of("errorMessage", "Cin and password are required"), HttpStatus.BAD_REQUEST);
     }
-
+        log.info("User with CIN {} and password {}",authenticationRequest.getCin(),authenticationRequest.getPassword());
     boolean isAuthenticated = redevableService.authenticate(authenticationRequest);
 
     if (isAuthenticated) {
@@ -54,7 +52,7 @@ public class AuthentificationController {
         Map<String, String> idToken = generateTokens(subject, scope);
         return new ResponseEntity<>(idToken, HttpStatus.OK);
     } else {
-        return new ResponseEntity<>(Map.of("errorMessage", "Authentication failed"), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(Map.of("errorMessage", "Authentication failed !"), HttpStatus.UNAUTHORIZED);
     }
 }
 
