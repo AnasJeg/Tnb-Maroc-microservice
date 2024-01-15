@@ -7,8 +7,10 @@ import {CategoriesComponent} from "./categories/categories.component";
 import { RedevableComponent } from './redevable/redevable.component';
 import { TaxeComponent } from './taxe/taxe.component';
 import { TauxComponent } from './taux/taux.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+  {path: 'login', component: LoginComponent},
   {path: 'admin_home' ,component:AdminHomePageComponent},
   {path: 'terrain' ,component:TerrainComponent},
   {path: 'tax' ,component:ClientHomePageComponent},
