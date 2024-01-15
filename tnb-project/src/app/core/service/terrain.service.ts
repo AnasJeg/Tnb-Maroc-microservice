@@ -29,6 +29,10 @@ export class TerrainService {
     return this.http.get<Terrain[]>(`${this.apiUrlterrain}/redevable`, { params: { cin } });
   }
 
+  getTerrainsByRedevableCin(cin: string, isPaid: string): Observable<Terrain[]> {
+    return this.http.get<Terrain[]>(`${this.apiUrlterrain}/redevable`, { params: { cin, isPaid } });
+  }
+  
   getCategories(): Observable<Categorie[]> {
     return this.http.get<any>(`${this.apiUrlC}/`).pipe(
       map(response => response.content as Categorie[])

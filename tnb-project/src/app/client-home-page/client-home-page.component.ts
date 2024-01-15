@@ -14,7 +14,9 @@ import { RedevableService } from '../core/service/redevable.service';
 export class ClientHomePageComponent implements OnInit {
   userCIN: string | null | undefined;
   terrains: Terrain[] = [];
+  filteredTerrains: Terrain[] = [];
   categories: Categorie[] = [];
+  isPaidFilter: boolean = false; // Set default value to false
   newTerrain: Terrain = {
     id: 0,
     nom: '',
@@ -24,32 +26,11 @@ export class ClientHomePageComponent implements OnInit {
   };
   displaySaveDialog: boolean = false;
 
-  // openSaveDialog(): void {
-  //   this.newTerrain.redevable!.id = this.userCIN ? +this.userCIN : 0;
-  //   this.displaySaveDialog = true;
-  // }
-  openSaveDialog(): void {
-    const userCIN = this.auth.getUserCIN();
-
-    if (userCIN) {
-      this.redevableService.getByCin(userCIN).subscribe(
-        (redevable) => {
-          this.newTerrain.redevable = redevable;
-          this.displaySaveDialog = true;
-        },
-        (error) => {
-          console.error('Error fetching redevable:', error);
-        }
-      );
-    }
-  }
-
-
   constructor(
     private terrainService: TerrainService,
     private auth: AuthService,
     private categorieService: CategorieService,
-    private redevableService: RedevableService
+    private redevableService: RedevableService 
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +47,7 @@ export class ClientHomePageComponent implements OnInit {
       );
     }
     this.loadCategories();
+    this.loadTerrainsFilt();
   }
 
   loadTerrains(): void {
@@ -83,6 +65,25 @@ export class ClientHomePageComponent implements OnInit {
     );
   }
 
+  loadTerrainsFilt(): void {
+    const isPaidFilterString = this.isPaidFilter !== null ? this.isPaidFilter.toString() : 'false';
+    
+    this.terrainService.getTerrainsByRedevableCin(this.userCIN!, isPaidFilterString).subscribe(
+      (terrains: Terrain[]) => {
+        this.filteredTerrains = terrains;
+      },
+      (error) => {
+        console.error('Error fetching terrains:', error);
+      }
+    );
+  }
+  
+
+  filterTerrains(isPaid: boolean): void {
+    this.isPaidFilter = isPaid;
+    this.loadTerrainsFilt();
+  }
+
   saveTerrain(): void {
     console.log(this.newTerrain);
 
@@ -98,13 +99,11 @@ export class ClientHomePageComponent implements OnInit {
     );
   }
 
-
   loadCategories(): void {
     this.categorieService.findAll().subscribe(
       (data) => {
         if (Array.isArray(data)) {
           this.categories = data;
-          console.log('cats', data);
         } else {
           console.error('Invalid data format:', data);
         }
@@ -113,5 +112,21 @@ export class ClientHomePageComponent implements OnInit {
         console.error('Error fetching categories:', error);
       }
     );
+  }
+
+  openSaveDialog(): void {
+    const userCIN = this.auth.getUserCIN();
+
+    if (userCIN) {
+      this.redevableService.getByCin(userCIN).subscribe(
+        (redevable) => {
+          this.newTerrain.redevable = redevable;
+          this.displaySaveDialog = true;
+        },
+        (error) => {
+          console.error('Error fetching redevable:', error);
+        }
+      );
+    }
   }
 }

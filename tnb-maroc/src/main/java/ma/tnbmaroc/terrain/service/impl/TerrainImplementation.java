@@ -4,12 +4,14 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import ma.tnbmaroc.redevable.repository.RedevableRepository;
 import ma.tnbmaroc.terrain.domain.Terrain;
+import ma.tnbmaroc.terrain.dto.TerrainWithPaymentStatus;
 import ma.tnbmaroc.terrain.repository.TerrainRepository;
 import ma.tnbmaroc.terrain.service.TerrainService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,5 +73,10 @@ public class TerrainImplementation implements TerrainService {
     @Override
     public List<Terrain> getAllByRedevable(String cin) {
         return this.terrainRepository.findTerrainsByRedevableCin(cin);
+    }
+
+    @Override
+    public List<Terrain> getTerrainsByRedevableCin(String cin, boolean isPaid) {
+        return terrainRepository.findByRedevableCinAndTaxesIsPaid(cin, isPaid);
     }
 }
