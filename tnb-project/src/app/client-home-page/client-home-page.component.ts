@@ -5,6 +5,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { Categorie } from '../core/models/categorie.model';
 import { CategorieService } from '../core/service/categorie.service';
 import { RedevableService } from '../core/service/redevable.service';
+import { TaxeService } from '../core/service/taxe.service';
 
 @Component({
   selector: 'app-client-home-page',
@@ -30,7 +31,8 @@ export class ClientHomePageComponent implements OnInit {
     private terrainService: TerrainService,
     private auth: AuthService,
     private categorieService: CategorieService,
-    private redevableService: RedevableService 
+    private redevableService: RedevableService,
+    private taxeService: TaxeService
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +80,9 @@ export class ClientHomePageComponent implements OnInit {
     );
   }
   
-
+  logout(): void {
+    this.auth.signOut();
+  }
   filterTerrains(isPaid: boolean): void {
     this.isPaidFilter = isPaid;
     this.loadTerrainsFilt();

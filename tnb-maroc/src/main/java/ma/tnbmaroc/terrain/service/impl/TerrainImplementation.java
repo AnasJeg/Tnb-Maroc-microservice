@@ -35,11 +35,11 @@ public class TerrainImplementation implements TerrainService {
     }
 
     @Override
-    public Terrain saveWithCin(Terrain terrain) {
+    public Terrain findByNom(String nom) {
        // this.redevableRepository.findByCin(terrain)
         //String userCIN = terrain.getRedevable().setId(userCIN);
-        log.info("save terrain: {}", terrain);
-        return this.terrainRepository.save(terrain);
+        log.info("save terrain: {}", nom);
+        return this.terrainRepository.findByNom(nom);
     }
 
     @Override

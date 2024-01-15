@@ -10,7 +10,7 @@ import java.util.List;
 public interface TerrainService {
     Terrain save(Terrain terrain);
 
-    Terrain saveWithCin(Terrain terrain);
+    Terrain findByNom(String nom);
     Page<Terrain> getAll(Pageable pageable);
     Terrain update(Terrain terrain);
     boolean delete(Long id);

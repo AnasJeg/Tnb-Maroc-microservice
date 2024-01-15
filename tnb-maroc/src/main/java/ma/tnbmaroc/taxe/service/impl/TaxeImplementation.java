@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 @Slf4j
@@ -111,6 +113,20 @@ public class TaxeImplementation implements TaxeService {
         return taxeAmount;
     }
 
+    @Override
+    public Taxe findByTnbYear(int tnbYear){
+        return taxeRepository.findByAnnee(tnbYear);
+    }
+    @Override
+    public List<Taxe> findByTerrain(String nom){
+        Terrain terrain = terrainService.findByNom(nom);
+        return taxeRepository.findByTerrain(terrain);
+    }
 
+    @Override
+    public List<Taxe> findByTnbYearAndTerrain(int year, String nom){
+        Terrain terrain = terrainService.findByNom(nom);
+        return taxeRepository.findByAnneeAndTerrain(year, terrain);
+    }
 
 }

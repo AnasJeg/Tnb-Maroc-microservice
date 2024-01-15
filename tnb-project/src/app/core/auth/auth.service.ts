@@ -163,7 +163,7 @@ export class AuthService {
         
         this._authenticated = false;
 
-        
+        this.router.navigate(['/login']);
         return of(true);
     }
 

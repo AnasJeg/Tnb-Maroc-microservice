@@ -1,145 +1,157 @@
-<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
-  <div class="text-900 font-bold text-6xl mb-4 text-center">Mes Taxes</div>
-
-  <div class="grid grid-cols-1 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
-    <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm" (click)="openSaveDialog()"></button>
-  </div>
-
-  <div class="grid grid-cols-4 md:grid-cols-4 gap-3">
-    <!-- Left Card -->
-    <div class="col-12">
-      <div class="p-3 h-full">
-        <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
-          <div class="text-900 font-medium text-xl mb-2">Terrain :</div>
-          <div class="text-600">Tax description :</div>
-          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-          <div class="flex align-items-center">
-            <span class="font-bold text-2xl text-900">Amount : Dh</span>
-          </div>
-          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-          <ul class="list-none p-0 m-0 flex-grow-1">
-            <li class="flex align-items-center mb-3">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-900">Percentage :</span>
-            </li>
-            <li class="flex align-items-center mb-3">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-900">Status :</span>
-            </li>
-            <li class="flex align-items-center mb-3">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-900">Year :</span>
-            </li>
-          </ul>
-          <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
-          <button pButton pRipple label="button" class="p-3 w-full mt-auto"></button>
-        </div>
-      </div>
-    </div>
 
 
-    <div class="col-12">
-      <div class="p-3 h-full">
-        <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
-          <div *ngIf="terrains.length > 0">
-            <ul class="list-none p-0 m-0">
-              <li *ngFor="let terrain of terrains" class="flex align-items-center mb-3">
-                <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                <span class="text-900">Terrain Name: {{ terrain.nom }}</span>
-              </li>
-            </ul>
-          </div>
-          <div *ngIf="terrains.length === 0" class="text-600">No terrains found for this user.</div>
-        </div>
-        </div>
-        </div>
-    </div>
-
-<!--    &lt;!&ndash; Right Card &ndash;&gt;-->
-<!--    <div class="col-6">-->
-
-<!--      <div class="p-3 h-full">-->
-<!--        <div class="grid grid-cols-1 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">-->
-<!--          <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm" (click)="openSaveDialog()"></button>-->
-<!--        </div>-->
-<!--        <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">-->
-<!--          <div class="text-900 font-medium text-xl mb-2">Terrains owned:</div>-->
-<!--          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />-->
-<!--          <div *ngIf="terrains.length > 0">-->
-<!--            <ul class="list-none p-0 m-0">-->
-<!--              <li *ngFor="let terrain of terrains" class="flex align-items-center mb-3">-->
-<!--                <i class="pi pi-check-circle text-green-500 mr-2"></i>-->
-<!--                <span class="text-900">Terrain Name: {{ terrain.nom }}</span>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--          <div *ngIf="terrains.length === 0" class="text-600">No terrains found for this user.</div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-  <!-- Table -->
-  <div class="p-3">
-    <div class="shadow-2 p-3 flex flex-column surface-card" style="border-radius: 6px">
-      <div class="text-900 font-medium text-xl mb-2">Terrains Table:</div>
-
-      <div class="mb-3">
-        <label for="isPaidFilter" class="mr-2">Filter by Paid Status:</label>
-        <select id="isPaidFilter" class="p-dropdown" [(ngModel)]="isPaidFilter" (change)="loadTerrainsFilt()">
-          <option value="false">Unpaid</option>
-          <option value="true">Paid</option>
-        </select>
-      </div>
-
-      <p-table [value]="filteredTerrains">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Terrain Name</th>
-            <th>Surface</th>
-            <th>Category</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-terrain>
-          <tr [ngClass]="{'paid-row': terrain.isPaid, 'unpaid-row': !terrain.isPaid}">
-            <td>{{terrain.nom}}</td>
-            <td>{{terrain.surface}}</td>
-            <td>{{terrain.categorie?.label}}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-
-      <div *ngIf="filteredTerrains.length === 0" class="text-600">No terrains found for this user.</div>
-    </div>
+<div class="header p-4 bg-blue-500 text-white">
+  <div class="flex justify-between items-center">
+    <div class="text-xl font-bold">Mes Taxes</div>
+    <button pButton label="Logout" class="p-button-text bg-white border-blue-500 p-1 text-sm" (click)="logout()"></button>
   </div>
 </div>
 
-
-<p-dialog header="Add Terrain" [(visible)]="displaySaveDialog" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
-  <div class="p-fluid">
-    <div class="p-field">
-      <label for="nom">Name</label>
-      <input id="nom" pInputText [(ngModel)]="newTerrain.nom" />
+<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+  <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+    <div class="text-900 font-bold text-6xl mb-4 text-center">Mes Taxes</div>
+  
+    <div class="grid grid-cols-1 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
+      <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm" (click)="openSaveDialog()"></button>
     </div>
-    <div class="p-field">
-      <label for="surface">Surface</label>
-      <input id="surface" pInputText [(ngModel)]="newTerrain.surface" />
-    </div>
-
-
-
-    <div class="p-field m-1">
-      <div class="p-field m-1">
-        <label for="category" class="mx-2">Category</label>
-        <select class="form-select " id="category"  [(ngModel)]="newTerrain.categorie!.id" name="category">
-          <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.label }}</option>
-        </select>
+  
+    <div class="grid grid-cols-4 md:grid-cols-4 gap-3">
+      <!-- Left Card -->
+      <div class="col-12">
+        <div class="p-3 h-full">
+          <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
+            <div class="text-900 font-medium text-xl mb-2">Terrain :</div>
+            <div class="text-600">Tax description :</div>
+            <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
+            <div class="flex align-items-center">
+              <span class="font-bold text-2xl text-900">Amount : Dh</span>
+            </div>
+            <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
+            <ul class="list-none p-0 m-0 flex-grow-1">
+              <li class="flex align-items-center mb-3">
+                <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                <span class="text-900">Percentage :</span>
+              </li>
+              <li class="flex align-items-center mb-3">
+                <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                <span class="text-900">Status :</span>
+              </li>
+              <li class="flex align-items-center mb-3">
+                <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                <span class="text-900">Year :</span>
+              </li>
+            </ul>
+            <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
+            <button pButton pRipple label="button" class="p-3 w-full mt-auto"></button>
+          </div>
+        </div>
+      </div>
+  
+  
+      <div class="col-12">
+        <div class="p-3 h-full">
+          <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
+            <div *ngIf="terrains.length > 0">
+              <ul class="list-none p-0 m-0">
+                <li *ngFor="let terrain of terrains" class="flex align-items-center mb-3">
+                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                  <span class="text-900">Terrain Name: {{ terrain.nom }}</span>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="terrains.length === 0" class="text-600">No terrains found for this user.</div>
+          </div>
+          </div>
+          </div>
+      </div>
+  
+  <!--    &lt;!&ndash; Right Card &ndash;&gt;-->
+  <!--    <div class="col-6">-->
+  
+  <!--      <div class="p-3 h-full">-->
+  <!--        <div class="grid grid-cols-1 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">-->
+  <!--          <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm" (click)="openSaveDialog()"></button>-->
+  <!--        </div>-->
+  <!--        <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">-->
+  <!--          <div class="text-900 font-medium text-xl mb-2">Terrains owned:</div>-->
+  <!--          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />-->
+  <!--          <div *ngIf="terrains.length > 0">-->
+  <!--            <ul class="list-none p-0 m-0">-->
+  <!--              <li *ngFor="let terrain of terrains" class="flex align-items-center mb-3">-->
+  <!--                <i class="pi pi-check-circle text-green-500 mr-2"></i>-->
+  <!--                <span class="text-900">Terrain Name: {{ terrain.nom }}</span>-->
+  <!--              </li>-->
+  <!--            </ul>-->
+  <!--          </div>-->
+  <!--          <div *ngIf="terrains.length === 0" class="text-600">No terrains found for this user.</div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  
+    <!-- Table -->
+    <div class="p-3">
+      <div class="shadow-2 p-3 flex flex-column surface-card" style="border-radius: 6px">
+        <div class="text-900 font-medium text-xl mb-2">Terrains Table:</div>
+  
+        <div class="mb-3">
+          <label for="isPaidFilter" class="mr-2">Filter by Paid Status:</label>
+          <select id="isPaidFilter" class="p-dropdown" [(ngModel)]="isPaidFilter" (change)="loadTerrainsFilt()">
+            <option value="false">Unpaid</option>
+            <option value="true">Paid</option>
+          </select>
+        </div>
+  
+        <p-table [value]="filteredTerrains">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Terrain Name</th>
+              <th>Surface</th>
+              <th>Category</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-terrain>
+            <tr [ngClass]="{'paid-row': terrain.isPaid, 'unpaid-row': !terrain.isPaid}">
+              <td>{{terrain.nom}}</td>
+              <td>{{terrain.surface}}</td>
+              <td>{{terrain.categorie?.label}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+  
+        <div *ngIf="filteredTerrains.length === 0" class="text-600">No terrains found for this user.</div>
       </div>
     </div>
-
   </div>
-  <div class="p-dialog-footer mt-2">
-    <button pButton label="Save" class="p-button-success" (click)="saveTerrain()"></button>
-    <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>
-  </div>
-</p-dialog>
+  
+  
+  <p-dialog header="Add Terrain" [(visible)]="displaySaveDialog" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="nom">Name</label>
+        <input id="nom" pInputText [(ngModel)]="newTerrain.nom" />
+      </div>
+      <div class="p-field">
+        <label for="surface">Surface</label>
+        <input id="surface" pInputText [(ngModel)]="newTerrain.surface" />
+      </div>
+  
+  
+  
+      <div class="p-field m-1">
+        <div class="p-field m-1">
+          <label for="category" class="mx-2">Category</label>
+          <select class="form-select " id="category"  [(ngModel)]="newTerrain.categorie!.id" name="category">
+            <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.label }}</option>
+          </select>
+        </div>
+      </div>
+  
+    </div>
+    <div class="p-dialog-footer mt-2">
+      <button pButton label="Save" class="p-button-success" (click)="saveTerrain()"></button>
+      <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>
+    </div>
+  </p-dialog>
+  
+</div>
