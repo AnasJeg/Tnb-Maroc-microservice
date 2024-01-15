@@ -44,6 +44,13 @@ public class TerrainController {
     public ResponseEntity<List<Terrain>> getById(@PathParam(value = "cin") String cin){
         return ResponseEntity.ok().body(terrainService.getAllByRedevable(cin));
     }
+    @GetMapping("/all")
+    public ResponseEntity<List<Terrain>> getTerrainsByRedevableCin(@RequestParam(value = "cin") String cin,
+            @RequestParam(value = "isPaid", defaultValue = "true") boolean isPaid) {
+        List<Terrain> terrains = terrainService.getTerrainsByRedevableCin(cin, isPaid);
+        return ResponseEntity.ok().body(terrains);
+    }
+
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@PathParam(value = "id") Long id){

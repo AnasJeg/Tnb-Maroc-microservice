@@ -17,4 +17,6 @@ public interface TerrainService {
     Terrain getById(Long id);
 
     List<Terrain> getAllByRedevable(String cin);
+
+    List<Terrain> getTerrainsByRedevableCin(String cin, boolean isPaid);
 }

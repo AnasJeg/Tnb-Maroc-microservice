@@ -16,9 +16,5 @@ public class Categorie {
     private Long id;
     private String label;
     private String description;
-/*
-    @ManyToOne
-    private Taux taux;
 
- */
 }

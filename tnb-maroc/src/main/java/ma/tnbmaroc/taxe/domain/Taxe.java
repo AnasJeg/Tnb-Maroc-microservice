@@ -21,6 +21,8 @@ public class Taxe {
     private Double montant;
     private int annee;
 
+    private Boolean isPaid;
+
     @ManyToOne
     @JoinColumn(name = "redevable_id")
     private Redevable redevable;
