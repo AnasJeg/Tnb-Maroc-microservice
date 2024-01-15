@@ -37,8 +37,7 @@
       </ng-template>
       <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
-          <!--          In total there are {{categories ? categories.length : 0 }} category.-->
-          test
+                    In total there are {{categories ? categories.length : 0 }} category.
         </div>
       </ng-template>
     </p-table>
@@ -67,6 +66,13 @@
           <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.label }}</option>
         </select>
       </div>
+
+      <div class="p-field m-1">
+        <label for="category" class="mx-2">Redevable</label>
+        <select class="form-select " id="category"  [(ngModel)]="newTerrain.redevable!.id" name="redevable">
+          <option *ngFor="let redevable of redevable" [ngValue]="redevable.id">{{ redevable.id }}</option>
+        </select>
+      </div>
     </div>
 
   </div>
@@ -75,3 +81,4 @@
     <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>
   </div>
 </p-dialog>
+

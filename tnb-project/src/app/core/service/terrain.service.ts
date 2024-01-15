@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Terrain} from "../models/terrain.model";
 import {map, Observable} from "rxjs";
 import {Categorie} from "../models/categorie.model";
+import {Redevable} from "../models/redevable.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class TerrainService {
     );
   }
 
- 
+
   findAllByCin(cin: string): Observable<Terrain[]> {
     return this.http.get<Terrain[]>(`${this.apiUrlterrain}/redevable`, { params: { cin } });
   }
@@ -34,15 +35,16 @@ export class TerrainService {
     );
   }
 
-  getUsers(): Observable<Categorie[]> {
+
+  getUsers(): Observable<Redevable[]> {
     return this.http.get<any>(`${this.apiUrlusers}/`).pipe(
-      map(response => response.content as Categorie[])
+      map(response => response.content as Redevable[])
     );
   }
 
 
-  saveTerrain(appareil: Terrain): Observable<Terrain> {
-    return this.http.post<Terrain>(`${this.apiUrlterrain}/save`, appareil);
+  saveTerrain(terrain: Terrain): Observable<Terrain> {
+    return this.http.post<Terrain>(`${this.apiUrlterrain}/save`, terrain);
   }
 
   deleteTerrain(id: number): Observable<void> {

@@ -25,12 +25,12 @@ export class ClientHomePageComponent implements OnInit {
   displaySaveDialog: boolean = false;
 
   // openSaveDialog(): void {
-  //   this.newTerrain.redevable!.id = this.userCIN ? +this.userCIN : 0; 
+  //   this.newTerrain.redevable!.id = this.userCIN ? +this.userCIN : 0;
   //   this.displaySaveDialog = true;
   // }
   openSaveDialog(): void {
     const userCIN = this.auth.getUserCIN();
-  
+
     if (userCIN) {
       this.redevableService.getByCin(userCIN).subscribe(
         (redevable) => {
@@ -43,13 +43,13 @@ export class ClientHomePageComponent implements OnInit {
       );
     }
   }
-  
-  
+
+
   constructor(
     private terrainService: TerrainService,
     private auth: AuthService,
     private categorieService: CategorieService,
-    private redevableService: RedevableService 
+    private redevableService: RedevableService
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +85,7 @@ export class ClientHomePageComponent implements OnInit {
 
   saveTerrain(): void {
     console.log(this.newTerrain);
-    
+
     this.terrainService.saveTerrain(this.newTerrain).subscribe(
       (savedTerrain) => {
         console.log('Terrain saved successfully:', savedTerrain);
@@ -97,6 +97,7 @@ export class ClientHomePageComponent implements OnInit {
       }
     );
   }
+
 
   loadCategories(): void {
     this.categorieService.findAll().subscribe(
