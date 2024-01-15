@@ -17,6 +17,11 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([route]);
   }
 
+  logout() {
+    this.authService.signOut();
+  }
+
+
   ngOnInit() {
 
     const userRole = this.authService.getRole();
@@ -39,12 +44,12 @@ export class NavbarComponent implements OnInit {
         icon: 'pi pi-fw pi-slack',
         command: () => this.navigateTo('/categories'),
       },
-      {
-        label: 'Client Taxes',
-        icon: 'pi pi-fw pi-ticket',
-        command: () => this.navigateTo('/tax'),
+      // {
+      //   label: 'Client Taxes',
+      //   icon: 'pi pi-fw pi-ticket',
+      //   command: () => this.navigateTo('/tax'),
 
-      },
+      // },
       {
         label: 'Clients',
         icon: 'pi pi-fw pi-ticket',
@@ -60,6 +65,11 @@ export class NavbarComponent implements OnInit {
         label: 'Taux',
         icon: 'pi pi-fw pi-ticket',
         command: () => this.navigateTo('/taux'),
+      },
+      {
+        label: 'Logout',
+        icon: 'pi pi-fw pi-sign-out',
+        command: () => this.logout(),
       },
 
     ];

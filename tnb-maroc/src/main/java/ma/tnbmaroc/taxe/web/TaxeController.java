@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/taxe")
@@ -42,5 +43,23 @@ public class TaxeController {
     public ResponseEntity<?> delete(@PathParam(value = "id") Long id){
         this.taxeService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/byYear/{tnbYear}")
+    public ResponseEntity<Taxe> getByTnbYear(@PathVariable int tnbYear) {
+        return ResponseEntity.ok().body(taxeService.findByTnbYear(tnbYear));
+    }
+
+    @GetMapping("/byTerrain/{nom}")
+    public ResponseEntity<List<Taxe>> getByTerrain(@PathVariable String nom) {
+        return ResponseEntity.ok().body(taxeService.findByTerrain(nom));
+    }
+
+    @GetMapping("/byYearAndTerrain")
+    public ResponseEntity<List<Taxe>> getByYearAndTerrain(
+            @RequestParam int year,
+            @RequestParam String nom
+    ) {
+        return ResponseEntity.ok().body(taxeService.findByTnbYearAndTerrain(year, nom));
     }
 }

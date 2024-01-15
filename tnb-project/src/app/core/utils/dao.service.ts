@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth/auth.service';
 import { Pagination } from '../models/request.model';
 import { PaginationValue } from '../models/pagination.model';
+import { Taxe } from '../models/taxe.model';
 
 
 @Injectable({
@@ -58,5 +59,21 @@ export abstract class DaoService<T> {
           }
         });
       }
+
+      getTaxeTnbsByTerrain(nom: string): Observable<Taxe[]> {
+        const url = `${this.API}/byTerrain/${nom}`;
+        return this.http.get<Taxe[]>(url);
+    }
+    
+    calculateTaxeTNB(cin: string, terrainNom: string, taxeTnbId: number): Observable<number> {
+        const url = `${this.API}/calculate/${cin}/${terrainNom}/${taxeTnbId}`;
+        return this.http.get<number>(url);
+    }
+    
+    payTaxeTNB(cin: string, terrainNom: string, taxeTnbId: number): Observable<void> {
+        const url = `${this.API}/pay/${cin}/${terrainNom}/${taxeTnbId}`;
+        return this.http.get<void>(url);
+    }
+    
 }
 

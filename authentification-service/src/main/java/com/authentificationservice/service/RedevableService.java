@@ -21,7 +21,6 @@ public class RedevableService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public Boolean authenticate(AuthenticationRequest request) {
-        // Retrieve the Redevable by CIN from the database
         Optional<Redevable> optionalRedevable = redevableRepository.findByCin(request.getCin());
 
         if (optionalRedevable.isPresent()) {
