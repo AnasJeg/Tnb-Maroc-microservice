@@ -1,0 +1,87 @@
+<div class="card m-3 p-2">
+    <div class="grid grid-cols-2 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
+      <button pButton label="Add Taxe" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm gap-2" (click)="openSaveDialog()"></button>
+    </div>
+    <div class="card">
+      <p-table [value]="taxes">
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-start">
+            <h3>Taxe</h3>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID</th>
+            <th>Label</th>
+            <th>Montant</th>
+            <th>Année</th>
+            <th>Redevable</th>
+            <th>Terrain</th>
+            <th>Categorie</th>
+            <th>Taux</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-taxe>
+          <tr>
+            <td>{{ taxe.id }}</td>
+            <td>{{ taxe.label }}</td>
+            <td>{{ taxe.montant }}</td>
+            <td>{{ taxe.annee }}</td>
+            <td>{{ taxe.redevable?.nom }} {{ taxe.redevable?.prenom }}</td>
+            <td>{{ taxe.terrain?.label }}</td>
+            <td>{{ taxe.categorie?.label }}</td>
+            <td>{{ taxe.taux?.label }}</td>
+            <!-- <td>
+              <button pButton label="Delete" class="p-button-warning mx-2 p-2" (click)="deleteTaxe(taxe.id)"></button>
+              <button pButton label="Update" class="p-button-primary mx-2 p-2" (click)="updateTaxe(taxe.id)"></button>
+            </td> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+            In total there are {{ taxes.length }} taxes.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  
+  <p-dialog header="Add Taxes" [(visible)]="displaySaveDialog" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="label">Label</label>
+        <input id="label" pInputText [(ngModel)]="newTaxe.label" />
+      </div>
+      <div class="p-field">
+        <label for="montant">Montant</label>
+        <input id="montant" pInputText [(ngModel)]="newTaxe.montant" />
+      </div>
+      <div class="p-field">
+        <label for="annee">Année</label>
+        <input id="annee" pInputText [(ngModel)]="newTaxe.annee" />
+      </div>
+      <div class="p-field">
+        <label for="redevable">Redevable</label>
+        <p-dropdown [options]="redevables" [(ngModel)]="newTaxe.redevable" optionLabel="nom" placeholder="Select a redevable"></p-dropdown>
+      </div>
+      <div class="p-field">
+        <label for="terrain">Terrain</label>
+        <p-dropdown [options]="terrains" [(ngModel)]="newTaxe.terrain" optionLabel="label" placeholder="Select a terrain"></p-dropdown>
+      </div>
+      <div class="p-field">
+        <label for="categorie">Categorie</label>
+        <p-dropdown [options]="categories" [(ngModel)]="newTaxe.categorie" optionLabel="label" placeholder="Select a categorie"></p-dropdown>
+      </div>
+      <div class="p-field">
+        <label for="taux">Taux</label>
+        <p-dropdown [options]="tauxs" [(ngModel)]="newTaxe.taux" optionLabel="label" placeholder="Select a taux"></p-dropdown>
+      </div>
+    </div>
+  
+    <div class="p-dialog-footer mt-2">
+      <button pButton label="Save" class="p-button-success" (click)="saveTaxe()"></button>
+      <button pButton label="Cancel" class="p-button-secondary" (click)="displaySaveDialog = false"></button>
+    </div>
+  </p-dialog>
+  

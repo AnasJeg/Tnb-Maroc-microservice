@@ -42,7 +42,18 @@ export class NavbarComponent {
         command: () => this.navigateTo('/tax'),
 
       },
+      {
+        label: 'Clients',
+        icon: 'pi pi-fw pi-ticket',
+        command: () => this.navigateTo('/redevable'),
 
+      },
+      {
+        label: 'Taxes',
+        icon: 'pi pi-fw pi-ticket',
+        command: () => this.navigateTo('/taxes'),
+      },
+      
 
     ];
   }

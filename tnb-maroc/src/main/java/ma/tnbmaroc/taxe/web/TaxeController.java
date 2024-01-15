@@ -14,6 +14,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("api/taxe")
 @AllArgsConstructor
+@CrossOrigin
 public class TaxeController {
     private final TaxeService taxeService;
     @PostMapping("/save")
