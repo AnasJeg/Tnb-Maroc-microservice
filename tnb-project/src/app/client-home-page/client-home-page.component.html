@@ -1,9 +1,13 @@
 <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
   <div class="text-900 font-bold text-6xl mb-4 text-center">Mes Taxes</div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="grid grid-cols-1 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
+    <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm" (click)="openSaveDialog()"></button>
+  </div>
+
+  <div class="grid grid-cols-4 md:grid-cols-4 gap-3">
     <!-- Left Card -->
-    <div class="col-6">
+    <div class="col-12">
       <div class="p-3 h-full">
         <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
           <div class="text-900 font-medium text-xl mb-2">Terrain :</div>
@@ -33,16 +37,10 @@
       </div>
     </div>
 
-    <!-- Right Card -->
-    <div class="col-6">
-      
+
+    <div class="col-12">
       <div class="p-3 h-full">
-        <div class="grid grid-cols-1 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">
-          <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm" (click)="openSaveDialog()"></button>
-        </div>
         <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
-          <div class="text-900 font-medium text-xl mb-2">Terrains owned:</div>
-          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
           <div *ngIf="terrains.length > 0">
             <ul class="list-none p-0 m-0">
               <li *ngFor="let terrain of terrains" class="flex align-items-center mb-3">
@@ -53,15 +51,39 @@
           </div>
           <div *ngIf="terrains.length === 0" class="text-600">No terrains found for this user.</div>
         </div>
-      </div>
+        </div>
+        </div>
     </div>
-  </div>
+
+<!--    &lt;!&ndash; Right Card &ndash;&gt;-->
+<!--    <div class="col-6">-->
+
+<!--      <div class="p-3 h-full">-->
+<!--        <div class="grid grid-cols-1 flex justify-content-start gap-2 p-2 bg-gray-100 mb-3 -mt-3 rounded-xl">-->
+<!--          <button pButton label="Add Terrain" class="p-button-text bg-white border-blue-500 mx-0.5 p-1 text-sm" (click)="openSaveDialog()"></button>-->
+<!--        </div>-->
+<!--        <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">-->
+<!--          <div class="text-900 font-medium text-xl mb-2">Terrains owned:</div>-->
+<!--          <hr class="my-3 mx-0 border-top-1 border-none surface-border" />-->
+<!--          <div *ngIf="terrains.length > 0">-->
+<!--            <ul class="list-none p-0 m-0">-->
+<!--              <li *ngFor="let terrain of terrains" class="flex align-items-center mb-3">-->
+<!--                <i class="pi pi-check-circle text-green-500 mr-2"></i>-->
+<!--                <span class="text-900">Terrain Name: {{ terrain.nom }}</span>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--          <div *ngIf="terrains.length === 0" class="text-600">No terrains found for this user.</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <!-- Table -->
   <div class="p-3">
     <div class="shadow-2 p-3 flex flex-column surface-card" style="border-radius: 6px">
       <div class="text-900 font-medium text-xl mb-2">Terrains Table:</div>
-      
+
       <div class="mb-3">
         <label for="isPaidFilter" class="mr-2">Filter by Paid Status:</label>
         <select id="isPaidFilter" class="p-dropdown" [(ngModel)]="isPaidFilter" (change)="loadTerrainsFilt()">
