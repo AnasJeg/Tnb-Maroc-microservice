@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.tnbmaroc.categorie.domain.Categorie;
 import ma.tnbmaroc.redevable.domain.Redevable;
 import ma.tnbmaroc.taux.domain.Taux;
 import ma.tnbmaroc.terrain.domain.Terrain;
@@ -29,10 +28,6 @@ public class Taxe {
     @ManyToOne
     @JoinColumn(name = "terrain_id")
     private Terrain terrain;
-
-    @ManyToOne
-    @JoinColumn(name = "categorie_id")
-    private Categorie categorie;
 
     @ManyToOne
     @JoinColumn(name = "taux_id")

@@ -53,7 +53,11 @@ export class NavbarComponent {
         icon: 'pi pi-fw pi-ticket',
         command: () => this.navigateTo('/taxes'),
       },
-      
+      {
+        label: 'Taux',
+        icon: 'pi pi-fw pi-ticket',
+        command: () => this.navigateTo('/taux'),
+      },
 
     ];
   }

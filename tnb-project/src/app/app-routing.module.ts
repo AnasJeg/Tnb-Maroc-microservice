@@ -6,6 +6,7 @@ import {TerrainComponent} from "./terrain/terrain.component";
 import {CategoriesComponent} from "./categories/categories.component";
 import { RedevableComponent } from './redevable/redevable.component';
 import { TaxeComponent } from './taxe/taxe.component';
+import { TauxComponent } from './taux/taux.component';
 
 const routes: Routes = [
   {path: 'admin_home' ,component:AdminHomePageComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'tax' ,component:ClientHomePageComponent},
   {path: 'categories' ,component:CategoriesComponent},
   {path: 'redevable', component: RedevableComponent},
-  {path: 'taxes', component: TaxeComponent}
+  {path: 'taxes', component: TaxeComponent},
+  {path: 'taux', component: TauxComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

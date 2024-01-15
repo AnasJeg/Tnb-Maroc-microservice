@@ -35,6 +35,27 @@ public class TaxeImplementation implements TaxeService {
     public Taxe save(Taxe taxe) {
         Redevable redevable = redevableService.findByCin(taxe.getRedevable().getCin());
         Terrain terrain = terrainService.getById(taxe.getTerrain().getId());
+        Taux taux = tauxService.findByCategorieLabel(terrain.getCategorie().getLabel());
+        log.info("save taxe - Input - redevable: {}, terrain: {}, taux: {}", redevable, terrain, taux);
+        taxe.setRedevable(redevable);
+        taxe.setTerrain(terrain);
+        taxe.setTaux(taux);
+
+        if (taux != null) {
+            taxe.setMontant(terrain.getSurface() * taux.getPrix());
+            log.info("save taxe - Calculated montant: {}", taxe.getMontant());
+        } else {
+            log.warn("save taxe - Taux not found for category label: {}", terrain.getCategorie().getLabel());
+        }
+        log.info("save taxe - Final - taxe: {}", taxe);
+        return this.taxeRepository.save(taxe);
+    }
+
+  /*
+      @Override
+    public Taxe save(Taxe taxe) {
+        Redevable redevable = redevableService.findByCin(taxe.getRedevable().getCin());
+        Terrain terrain = terrainService.getById(taxe.getTerrain().getId());
 
         Taux taux = tauxService.findByCategorieLabel(terrain.getCategorie().getLabel());
         taxe.setRedevable(redevable);
@@ -44,6 +65,8 @@ public class TaxeImplementation implements TaxeService {
         log.info("save taxe : {}", taxe);
         return this.taxeRepository.save(taxe);
     }
+
+   */
 
     @Override
     public Page<Taxe> getAll(Pageable pageable) {

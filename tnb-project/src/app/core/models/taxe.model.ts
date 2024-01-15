@@ -1,4 +1,3 @@
-import { Categorie } from "./categorie.model";
 import { Redevable } from "./redevable.model";
 import { Taux } from "./taux.model";
 import { Terrain } from "./terrain.model";
@@ -10,6 +9,5 @@ export interface Taxe {
     annee: number;
     redevable: Redevable;
    terrain: Terrain;
-    categorie: Categorie;
     taux: Taux;
   }

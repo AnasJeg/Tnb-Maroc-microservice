@@ -17,7 +17,6 @@
             <th>Année</th>
             <th>Redevable</th>
             <th>Terrain</th>
-            <th>Categorie</th>
             <th>Taux</th>
             <th>Actions</th>
           </tr>
@@ -30,7 +29,6 @@
             <td>{{ taxe.annee }}</td>
             <td>{{ taxe.redevable?.nom }} {{ taxe.redevable?.prenom }}</td>
             <td>{{ taxe.terrain?.label }}</td>
-            <td>{{ taxe.categorie?.label }}</td>
             <td>{{ taxe.taux?.label }}</td>
             <!-- <td>
               <button pButton label="Delete" class="p-button-warning mx-2 p-2" (click)="deleteTaxe(taxe.id)"></button>
@@ -67,16 +65,13 @@
       </div>
       <div class="p-field">
         <label for="terrain">Terrain</label>
-        <p-dropdown [options]="terrains" [(ngModel)]="newTaxe.terrain" optionLabel="label" placeholder="Select a terrain"></p-dropdown>
-      </div>
-      <div class="p-field">
-        <label for="categorie">Categorie</label>
-        <p-dropdown [options]="categories" [(ngModel)]="newTaxe.categorie" optionLabel="label" placeholder="Select a categorie"></p-dropdown>
+        <p-dropdown [options]="terrains" [(ngModel)]="newTaxe.terrain" optionLabel="nom" placeholder="Select a terrain"></p-dropdown>
       </div>
       <div class="p-field">
         <label for="taux">Taux</label>
-        <p-dropdown [options]="tauxs" [(ngModel)]="newTaxe.taux" optionLabel="label" placeholder="Select a taux"></p-dropdown>
-      </div>
+        <p-dropdown [options]="tauxs" [(ngModel)]="newTaxe.taux" optionLabel="categorie.label" placeholder="Select a taux"></p-dropdown>
+      </div>      
+    
     </div>
   
     <div class="p-dialog-footer mt-2">
