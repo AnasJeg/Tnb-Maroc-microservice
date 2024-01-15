@@ -11,4 +11,6 @@ import java.util.List;
 public interface TerrainRepository extends JpaRepository<Terrain, Long> {
     Terrain findByNom(String nom);
     List<Terrain> findTerrainsByRedevable(Redevable redevable);
+
+    List<Terrain> findTerrainsByRedevableCin(String cin);
 }

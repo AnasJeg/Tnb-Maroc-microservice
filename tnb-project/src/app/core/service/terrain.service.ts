@@ -23,6 +23,11 @@ export class TerrainService {
     );
   }
 
+ 
+  findAllByCin(cin: string): Observable<Terrain[]> {
+    return this.http.get<Terrain[]>(`${this.apiUrlterrain}/redevable`, { params: { cin } });
+  }
+
   getCategories(): Observable<Categorie[]> {
     return this.http.get<any>(`${this.apiUrlC}/`).pipe(
       map(response => response.content as Categorie[])

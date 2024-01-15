@@ -4,6 +4,8 @@ import {Observable, of, switchMap, throwError} from 'rxjs';
 import {environment} from "../../../environments/environment";
 import { Redevable } from '../models/redevable.model';
 import { RedevableService } from '../service/redevable.service';
+import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 
 @Injectable({providedIn: 'root'})
@@ -20,6 +22,7 @@ export class AuthService {
     constructor(
         private _httpClient: HttpClient,
         private _redevableService: RedevableService,
+        private router: Router
     ) {
     }
 
@@ -66,32 +69,93 @@ export class AuthService {
      * @param credentials
      */
     
-    signIn(credentials: { cin: string; password: string }): Observable<any> {
+    // signIn(credentials: { cin: string; password: string }): Observable<any> {
         
+    //     if (this._authenticated) {
+    //         return throwError('User is already logged in.');
+    //     }
+
+    //     return this._httpClient.post(`${this.host}/api/auth/login`, credentials
+    //         , {observe: 'response'})
+    //         .pipe(
+    //             switchMap((response: any) => {
+    //                 console.log(response)
+                    
+    //                 this.accessToken = response?.body?.accessToken;
+    //                 console.log("log token", response?.body?.accessToken);
+                    
+                    
+    //                 this._authenticated = true;
+
+                    
+    //                 return of(response?.body?.role);
+    //             }),
+    //         );
+    // }
+    signIn(credentials: { cin: string; password: string }): Observable<any> {
         if (this._authenticated) {
-            return throwError('User is already logged in.');
+          return throwError('User is already logged in.');
         }
-
-        return this._httpClient.post(`${this.host}/api/auth/login`, credentials
-            , {observe: 'response'})
-            .pipe(
-                switchMap((response: any) => {
-                    console.log(response)
-                    
-                    this.accessToken = response?.body?.accessToken;
-                    console.log("log token", response?.body?.accessToken);
-                    
-                    
-                    this._authenticated = true;
-
-                    
-                    return of(response?.body?.role);
-                }),
-            );
-    }
-
     
+        return this._httpClient.post(`${this.host}/api/auth/login`, credentials, { observe: 'response' })
+          .pipe(
+            switchMap((response: any) => {
+              console.log(response);
+    
+              const accessToken = response.body?.accessToken;
+    
+              if (accessToken) {
+                this.accessToken = accessToken;
+                console.log('Access Token:', accessToken);
+    
+                const decodedToken: any = jwtDecode(accessToken);
+                const role = decodedToken?.role;
+    
+                this._authenticated = true;
+  
+                console.log("role=====>",role);
+                if (role === 'ADMIN') {
+                    
+                  this.router.navigate(['/admin_home']);
+                } else if (role === 'USER') {
+                  this.router.navigate(['/tax']); 
+                } else {
+                  console.error('Unknown role:', role);
+                }
+    
+                return of(role);
+              } else {
+                return throwError('Access token not found in the response body.');
+              }
+            }),
+          );
+      }
+      
 
+      getRole(): string | null {
+        const accessToken = this.accessToken;
+    
+        if (accessToken) {
+          const decodedToken: any = jwtDecode(accessToken);
+          const role = decodedToken?.role;
+          return role;
+        }
+    
+        return null;
+      }
+
+
+      getUserCIN(): string | null {
+        const accessToken = this.accessToken;
+    
+        if (accessToken) {
+          const decodedToken: any = jwtDecode(accessToken);
+          const cin = decodedToken?.sub;
+          return cin;
+        }
+    
+        return null;
+      }
     signOut(): Observable<any> {
         
         localStorage.removeItem('accessToken');
