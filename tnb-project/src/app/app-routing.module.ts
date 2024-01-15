@@ -10,17 +10,19 @@ import { TauxComponent } from './taux/taux.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'admin_home' ,component:AdminHomePageComponent},
-  {path: 'terrain' ,component:TerrainComponent},
-  {path: 'tax' ,component:ClientHomePageComponent},
-  {path: 'categories' ,component:CategoriesComponent},
-  {path: 'redevable', component: RedevableComponent},
-  {path: 'taxes', component: TaxeComponent},
-  {path: 'taux', component: TauxComponent}
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'admin_home', component: AdminHomePageComponent },
+  { path: 'terrain', component: TerrainComponent },
+  { path: 'tax', component: ClientHomePageComponent },
+  { path: 'categories', component: CategoriesComponent },
+  { path: 'redevable', component: RedevableComponent },
+  { path: 'taxes', component: TaxeComponent },
+  { path: 'taux', component: TauxComponent }
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

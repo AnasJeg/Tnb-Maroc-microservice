@@ -42,6 +42,11 @@ URI uri=URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/s
         return ResponseEntity.ok().body(redevableService.getById(id));
     }
 
+    @GetMapping("/by")
+    public ResponseEntity<Redevable> getByCin(@PathParam(value = "cin") String cin){
+        return ResponseEntity.ok().body(redevableService.findByCin(cin));
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@PathParam(value = "id") Long id){
         this.redevableService.delete(id);

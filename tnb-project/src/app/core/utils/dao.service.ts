@@ -36,7 +36,10 @@ export abstract class DaoService<T> {
         return this.http.get<T>(this.API + `get?id=${id}`);
     }
 
-
+    getByCin(id: any): Observable<T> {
+        return this.http.get<T>(this.API + `by?cin=${id}`);
+    }
+    
     findAll(pageable: Pagination): Observable<PaginationValue<T>> {
         return this.http.get<PaginationValue<T>>(this.API , {
             params: {

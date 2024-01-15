@@ -2,12 +2,15 @@ package ma.tnbmaroc.terrain.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import ma.tnbmaroc.redevable.repository.RedevableRepository;
 import ma.tnbmaroc.terrain.domain.Terrain;
 import ma.tnbmaroc.terrain.repository.TerrainRepository;
 import ma.tnbmaroc.terrain.service.TerrainService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,13 +19,24 @@ public class TerrainImplementation implements TerrainService {
 
     private final TerrainRepository terrainRepository;
 
-    public TerrainImplementation(TerrainRepository terrainRepository) {
+    private final RedevableRepository redevableRepository;
+
+    public TerrainImplementation(TerrainRepository terrainRepository,RedevableRepository redevableRepository) {
         this.terrainRepository = terrainRepository;
+        this.redevableRepository=redevableRepository;
     }
 
     @Override
     public Terrain save(Terrain terrain) {
         log.info("save terrain : {}",terrain);
+        return this.terrainRepository.save(terrain);
+    }
+
+    @Override
+    public Terrain saveWithCin(Terrain terrain) {
+       // this.redevableRepository.findByCin(terrain)
+        //String userCIN = terrain.getRedevable().setId(userCIN);
+        log.info("save terrain: {}", terrain);
         return this.terrainRepository.save(terrain);
     }
 
@@ -52,5 +66,10 @@ public class TerrainImplementation implements TerrainService {
     @Override
     public Terrain getById(Long id) {
         return this.terrainRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Terrain> getAllByRedevable(String cin) {
+        return this.terrainRepository.findTerrainsByRedevableCin(cin);
     }
 }

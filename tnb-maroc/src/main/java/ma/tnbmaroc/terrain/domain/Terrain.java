@@ -22,15 +22,15 @@ public class Terrain{
     private Long id;
     private String nom;
     private Double surface;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categorie_id")
     private Categorie categorie;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "redevable_id")
     private Redevable redevable;
 
-    @OneToMany(mappedBy = "terrain", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "terrain")
     @JsonIgnore
     private List<Taxe> taxes= new ArrayList<>();
 }

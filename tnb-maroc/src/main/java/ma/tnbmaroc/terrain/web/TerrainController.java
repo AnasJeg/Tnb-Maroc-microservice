@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/terrain")
@@ -37,6 +38,11 @@ public class TerrainController {
     @GetMapping("/get")
     public ResponseEntity<Terrain> getById(@PathParam(value = "id") Long id){
         return ResponseEntity.ok().body(terrainService.getById(id));
+    }
+
+    @GetMapping("/redevable")
+    public ResponseEntity<List<Terrain>> getById(@PathParam(value = "cin") String cin){
+        return ResponseEntity.ok().body(terrainService.getAllByRedevable(cin));
     }
 
     @DeleteMapping("/delete")
